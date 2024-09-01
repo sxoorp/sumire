@@ -7,5 +7,8 @@ const { data } = await useFetch("/api/posts");
         <Title>Sumire • Read Latest Anime/Manga News & Announcements</Title>
     </Head>
     <Headline label="Latest Posts" />
-    <Cards :data="data?.stories" />
+    <Cards :data="data?.stories.slice(0, 8)" />
+    <UContainer as="div" class="flex justify-center items-center">
+        <UButton to="/posts" label="Browse More" />
+    </UContainer>
 </template>
