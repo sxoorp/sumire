@@ -38,12 +38,14 @@ const richtext = computed(() => renderRichText(data.value?.post.story.content.st
             <UDivider />
             <NuxtImg :src="data?.post.story.content.image.filename" :alt="data?.post.story.content.title"
                 class="rounded-sm" />
-            <UContainer as="div" v-html="richtext" />
-            <UContainer as="div" class="flex justify-center items-center" v-if="data?.post.story.content.trailer">
-                <iframe :src="data?.post.story.content.trailer" frameborder="0"
-                    class="w-full h-48 md:w-[480px] md:h-64 lg:w-[560px] lg:h-[315px]"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+            <UContainer as="div" class="space-y-6">
+                <UContainer as="div" v-html="richtext" />
+                <UContainer as="div" class="flex justify-center items-center" v-if="data?.post.story.content.trailer">
+                    <iframe :src="data?.post.story.content.trailer" frameborder="0"
+                        class="w-full h-48 md:w-[480px] md:h-64 lg:w-[560px] lg:h-[315px]"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+                </UContainer>
             </UContainer>
             <UContainer as="div" class="flex flex-col justify-center items-center gap-4 my-4"
                 v-if="data?.post.story.content.visuals.length! > 0">
@@ -60,17 +62,25 @@ const richtext = computed(() => renderRichText(data.value?.post.story.content.st
             <Headline label="Latest News" />
             <UContainer as="div" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 gap-2">
                 <NuxtLink :to="'/post/' + post.slug" class="flex flex-col lg:flex-row lg:items-center gap-2"
-                    v-for="post in data?.posts.stories">
+                    v-for="post in data?.posts.stories.slice(0, 8)">
                     <NuxtImg :src="post.content.image.filename" :alt="post.content.title"
-                        class="w-full h-full lg:w-32 lg:h-full rounded-sm object-cover" />
+                        class="w-full h-full lg:w-44 lg:h-full rounded-sm object-cover" />
                     <UContainer as="div" class="flex flex-col gap-1">
-                        <UContainer as="div" v-for="tag in post.content.tags">
-                            <UButton :label="tag" variant="soft" size="2xs" />
+                        <UContainer as="div" class="flex items-center gap-2">
+                            <UContainer as="div" v-for="tag in post.content.tags">
+                                <UButton :label="tag" variant="soft" size="2xs" />
+                            </UContainer>
+                            <p class="text-sm font-light">
+                                {{ dateformat(data?.post.story.published_at, "fullDate") }}</p>
                         </UContainer>
                         <p class="text-base font-medium line-clamp-2 transition-colors hover:text-primary">
                             {{ post.content.title }}</p>
+                        <p class="text-sm font-light line-clamp-1">{{ post.content.description }}</p>
                     </UContainer>
                 </NuxtLink>
+            </UContainer>
+            <UContainer as="div" class="flex justify-center items-center">
+                <UButton to="/posts" label="Browse More" block />
             </UContainer>
         </UContainer>
     </UContainer>
