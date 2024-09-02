@@ -63,9 +63,11 @@ const richtext = computed(() => renderRichText(data.value?.post.story.content.st
             <UContainer as="div" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-1 gap-2">
                 <NuxtLink :to="'/post/' + post.slug" class="flex flex-col lg:flex-row lg:items-center gap-2"
                     v-for="post in data?.posts.stories.slice(0, 8)">
-                    <NuxtImg :src="post.content.image.filename" :alt="post.content.title"
-                        class="w-full h-full lg:w-44 lg:h-full rounded-sm object-cover" />
-                    <UContainer as="div" class="flex flex-col gap-1">
+                    <UContainer as="div" class="w-full h-full lg:w-40 lg:h-24">
+                        <NuxtImg :src="post.content.image.filename" :alt="post.content.title"
+                        class="w-full h-full rounded-sm object-cover" />
+                    </UContainer>
+                    <UContainer as="div" class="flex flex-col flex-1 gap-1">
                         <UContainer as="div" class="flex items-center gap-2">
                             <UContainer as="div" v-for="tag in post.content.tags">
                                 <UButton :label="tag" variant="soft" size="2xs" />

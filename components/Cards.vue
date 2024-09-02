@@ -7,9 +7,9 @@ const { data } = defineProps(["data"]);
 <template>
     <UContainer as="div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 select-none">
         <NuxtLink :to="'/post/' + post.slug" class="group space-y-2" v-for="post in data">
-            <UContainer as="div" class="rounded-sm overflow-hidden">
+            <UContainer as="div" class="w-full h-44 md:h-52 lg:h-44 rounded-sm overflow-hidden">
                 <NuxtImg :src="post.content.image.filename" :alt="post.content.title"
-                    class="w-full h-fit rounded-sm object-cover transition-transform group-hover:scale-105" />
+                    class="w-full h-full rounded-sm object-cover transition-transform group-hover:scale-105" />
             </UContainer>
             <UContainer as="div" class="flex items-center gap-2">
                 <UContainer as="div" v-for="tag in post.content.tags">
