@@ -47,13 +47,42 @@ const richtext = computed(() => renderRichText(data.value?.post.story.content.st
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
                 </UContainer>
             </UContainer>
-            <UContainer as="div" class="flex flex-col justify-center items-center gap-4 my-4"
-                v-if="data?.post.story.content.visuals.length! > 0">
-                <UContainer as="div" class="flex flex-col items-center gap-2"
-                    v-for="(visual, index) in data?.post.story.content.visuals">
-                    <p class="text-lg font-semibold text-center" v-if="visual.meta_data.title">
-                        {{ visual.meta_data.title }}</p>
-                    <NuxtImg :src="visual.filename" :alt="'visual-' + index" class="w-full rounded-sm" />
+            <UContainer as="div" class="my-4" v-if="data?.post.story.content.visuals.length! > 0">
+                <UContainer as="div" class="grid grid-cols-1 gap-2"
+                    v-if="data?.post.story.content.visuals.length! === 1">
+                    <UContainer as="div" class="flex flex-col items-center gap-2"
+                        v-for="(visual, index) in data?.post.story.content.visuals">
+                        <NuxtImg :src="visual.filename" :alt="'visual-' + index" class="w-full md:w-4/5 rounded-sm" />
+                        <p class="text-sm font-normal italic text-center" v-if="visual.meta_data.title">
+                            {{ visual.meta_data.title }}</p>
+                    </UContainer>
+                </UContainer>
+                <UContainer as="div" class="grid grid-cols-2 gap-2"
+                    v-else-if="data?.post.story.content.visuals.length! === 2">
+                    <UContainer as="div" class="flex flex-col items-center gap-2"
+                        v-for="(visual, index) in data?.post.story.content.visuals">
+                        <NuxtImg :src="visual.filename" :alt="'visual-' + index" class="w-full rounded-sm" />
+                        <p class="text-sm font-normal italic text-center" v-if="visual.meta_data.title">
+                            {{ visual.meta_data.title }}</p>
+                    </UContainer>
+                </UContainer>
+                <UContainer as="div" class="grid grid-cols-2 md:grid-cols-3 gap-2"
+                    v-else-if="data?.post.story.content.visuals.length! === 3">
+                    <UContainer as="div" class="flex flex-col items-center gap-2"
+                        v-for="(visual, index) in data?.post.story.content.visuals">
+                        <NuxtImg :src="visual.filename" :alt="'visual-' + index" class="w-full rounded-sm" />
+                        <p class="text-sm font-normal italic text-center" v-if="visual.meta_data.title">
+                            {{ visual.meta_data.title }}</p>
+                    </UContainer>
+                </UContainer>
+                <UContainer as="div" class="grid grid-cols-2 md:grid-cols-4 gap-2"
+                    v-else-if="data?.post.story.content.visuals.length! >= 4">
+                    <UContainer as="div" class="flex flex-col items-center gap-2"
+                        v-for="(visual, index) in data?.post.story.content.visuals">
+                        <NuxtImg :src="visual.filename" :alt="'visual-' + index" class="w-full rounded-sm" />
+                        <p class="text-sm font-normal italic text-center" v-if="visual.meta_data.title">
+                            {{ visual.meta_data.title }}</p>
+                    </UContainer>
                 </UContainer>
             </UContainer>
             <UDivider />
@@ -65,7 +94,7 @@ const richtext = computed(() => renderRichText(data.value?.post.story.content.st
                     v-for="post in data?.posts.stories.slice(0, 8)">
                     <UContainer as="div" class="w-full h-full lg:w-40 lg:h-24">
                         <NuxtImg :src="post.content.image.filename" :alt="post.content.title"
-                        class="w-full h-full rounded-sm object-cover" />
+                            class="w-full h-full rounded-sm object-cover" />
                     </UContainer>
                     <UContainer as="div" class="flex flex-col flex-1 gap-1">
                         <UContainer as="div" class="flex items-center gap-2">
